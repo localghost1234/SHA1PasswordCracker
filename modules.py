@@ -1,7 +1,7 @@
-from constants import sha1_hash
+import hashlib
 
 def hash_password(sample_password):
-    return sha1_hash(sample_password).hexdigest()
+    return hashlib.sha1(sample_password.encode('utf-8')).hexdigest()
 
 def append_salt(password, salt):
     return salt + password + salt
