@@ -2,6 +2,7 @@ from constants import passwords_file_path, salts_file_path, default_message_text
 from modules import append_salt, check_final_hash
 
 def crack_sha1_hash(hash, use_salts = False):
+    password_result = ''
     passwords_file = open(passwords_file_path, 'r')
 
     for sample_password in passwords_file:
@@ -23,8 +24,9 @@ def crack_sha1_hash(hash, use_salts = False):
             salts_file.close()
 
         if is_correct_password:
-            return clean_password
+            password_result = clean_password
+            break
     
     passwords_file.close()
     
-    return default_message_text
+    return password_result if password_result else default_message_text
