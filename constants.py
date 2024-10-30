@@ -1,3 +1,3 @@
-passwords_file_lines = open('top-10000-passwords.txt', 'r').readlines()
-salts_file_lines = open('known-salts.txt', 'r').readlines()
-default_result_message = 'PASSWORD NOT IN DATABASE'
+passwords_file_path = 'top-10000-passwords.txt'
+salts_file_path = 'known-salts.txt'
+default_message_text = 'PASSWORD NOT IN DATABASE'
