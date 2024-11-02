@@ -1,5 +1,5 @@
 from constants import passwords_file_path, salts_file_path, default_message_text
-from modules import add_salt, check_final_hash, hash_password
+from modules import check_final_hash
 
 def crack_sha1_hash(hash, use_salts = False):
     password_result = ''
@@ -15,8 +15,11 @@ def crack_sha1_hash(hash, use_salts = False):
             salts_file = open(salts_file_path, 'r')
             
             for sample_salt in salts_file:
-                salted_password = add_salt(clean_password, sample_salt.strip())
-                is_correct_password = check_final_hash(hash, salted_password)
+                clean_salt = sample_salt.strip()
+                prepended_salt = clean_salt + clean_password
+                appended_salt = clean_password + clean_salt
+                
+                is_correct_password = check_final_hash(hash, prepended_salt) or check_final_hash(hash, appended_salt)
 
                 if is_correct_password:
                     break
