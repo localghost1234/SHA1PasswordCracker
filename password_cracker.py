@@ -1,9 +1,9 @@
 from constants import passwords_file_path, salts_file_path, default_message_text
-from modules import check_final_hash
+from modules import check_final_hash, read_file
 
 def crack_sha1_hash(hash, use_salts = False):
     password_result = ''
-    passwords_file = open(passwords_file_path, 'r')
+    passwords_file = read_file(passwords_file_path)
 
     for sample_password in passwords_file:
         is_correct_password = False
@@ -12,7 +12,7 @@ def crack_sha1_hash(hash, use_salts = False):
         if not use_salts:
             is_correct_password = check_final_hash(hash, clean_password)
         else:
-            salts_file = open(salts_file_path, 'r')
+            salts_file = read_file(salts_file_path)
             
             for sample_salt in salts_file:
                 clean_salt = sample_salt.strip()
